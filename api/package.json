@@ -12,6 +12,7 @@
     "express": "^4.17.1",
     "mongoose": "^6.1.1",
     "multer": "^1.4.4",
-    "nodemon": "^2.0.15"
+    "nodemon": "^2.0.15",
+    "swagger-ui-express": "^4.3.0"
   }
 }

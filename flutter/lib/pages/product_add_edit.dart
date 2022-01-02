@@ -23,6 +23,7 @@ class _ProductAddEditState extends State<ProductAddEdit> {
   bool isApiCallProcess = false;
   List<Object> images = [];
   bool isEditMode = false;
+  bool isImageSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -131,14 +132,14 @@ class _ProductAddEditState extends State<ProductAddEdit> {
             ),
           ),
           picPicker(
-            isEditMode,
+            isImageSelected,
             productModel!.productImage ?? "",
             (file) => {
               setState(
                 () {
                   //model.productPic = file.path;
                   productModel!.productImage = file.path;
-                  isEditMode = false;
+                  isImageSelected = true;
                 },
               )
             },
@@ -208,14 +209,17 @@ class _ProductAddEditState extends State<ProductAddEdit> {
   }
 
   static Widget picPicker(
-      bool isEditMode, String fileName, Function onFilePicked) {
+    bool isImageSelected,
+    String fileName,
+    Function onFilePicked,
+  ) {
     Future<XFile?> _imageFile;
     ImagePicker _picker = ImagePicker();
 
     return Column(
       children: [
         fileName.isNotEmpty
-            ? !isEditMode
+            ? isImageSelected
                 ? Image.file(
                     File(fileName),
                     width: 300,

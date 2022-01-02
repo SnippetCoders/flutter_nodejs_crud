@@ -38,25 +38,27 @@ class APIService {
   static Future<bool> saveProduct(
     ProductModel model,
     bool isEditMode,
+    bool isFileSelected,
   ) async {
-    Map<String, String> requestHeaders = {
-      'Content-Type': 'application/json',
-    };
+    var productURL = Config.productURL;
 
-    var url = Uri.http(
-      Config.apiURL,
-      Config.productsAPI,
-    );
+    if (isEditMode) {
+      productURL = productURL + "/" + model.id.toString();
+    }
+
+    var url = Uri.http(Config.apiURL, productURL);
 
     var requestMethod = isEditMode ? "PUT" : "POST";
 
     var request = http.MultipartRequest(requestMethod, url);
-    request.fields['productName'] = model.productName!;
-    request.fields['productPrice'] = model.productPrice!.toString();
+    request.fields["productName"] = model.productName!;
+    request.fields["productPrice"] = model.productPrice!.toString();
 
-    if (model.productImage != null) {
+    if (model.productImage != null && isFileSelected) {
       http.MultipartFile multipartFile = await http.MultipartFile.fromPath(
-          'productImage', model.productImage!);
+        'productImage',
+        model.productImage!,
+      );
 
       request.files.add(multipartFile);
     }
