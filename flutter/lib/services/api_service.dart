@@ -40,7 +40,7 @@ class APIService {
     bool isEditMode,
     bool isFileSelected,
   ) async {
-    var productURL = Config.productURL;
+    var productURL = Config.productsAPI;
 
     if (isEditMode) {
       productURL = productURL + "/" + model.id.toString();

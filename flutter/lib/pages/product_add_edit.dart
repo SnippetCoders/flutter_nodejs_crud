@@ -158,7 +158,11 @@ class _ProductAddEditState extends State<ProductAddEdit> {
                     isApiCallProcess = true;
                   });
 
-                  APIService.saveProduct(productModel!, isEditMode).then(
+                  APIService.saveProduct(
+                    productModel!,
+                    isEditMode,
+                    isImageSelected,
+                  ).then(
                     (response) {
                       setState(() {
                         isApiCallProcess = false;
